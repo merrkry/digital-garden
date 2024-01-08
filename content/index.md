@@ -1,6 +1,6 @@
 ---
 draft: false
-tags:
+tags: 
 date: 2024-01-04
 title: Welcome to Quartz
 ---
@@ -11,3 +11,5 @@ See the [documentation](https://quartz.jzhao.xyz) for how to get started.
 [[README]]
 
 [[index]]
+
+[[内核优化]]
