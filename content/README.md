@@ -1,6 +1,6 @@
 ---
 title:
-draft: true
+draft: false
 tags:
 date: 2024-01-04
 ---
