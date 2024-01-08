@@ -17,7 +17,7 @@ jobs:
     - name: Copy content branch to a temporary directory
       run: |
         git fetch
-        git worktree add ${{ vars.RUNNER_TEMP }}/content-dir content
+        git worktree add ${{ runner.temp }}/content-dir content
 
     - name: Switch to the custom branch and clear target directory
       run: |
@@ -26,8 +26,8 @@ jobs:
 
     - name: Copy files from content branch to custom branch
       run: |
-        cp -r ${{ vars.RUNNER_TEMP }}/content-dir/* content/
-        rm -rf ${{ vars.RUNNER_TEMP }}/content-dir  # 删除临时目录
+        cp -r ${{ runner.temp }}/content-dir/* content/
+        rm -rf ${{ runner.temp }}/content-dir  # 删除临时目录
 
     - name: Remove hidden files from content directory
       run: |
