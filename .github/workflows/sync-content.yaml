@@ -12,8 +12,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Copy and commit files
         env:
-          SOURCE_BRANCH: 'content --'
-          TARGET_BRANCH: 'custom --'
+          SOURCE_BRANCH: 'content'
+          TARGET_BRANCH: 'custom'
           TARGET_FOLDER: 'content'
         run: |
           git config --global user.name 'GitHub Action'
@@ -21,18 +21,18 @@ jobs:
           git fetch
           
           # 切换到源分支并获取文件列表，忽略隐藏文件
-          git checkout $SOURCE_BRANCH
+          git checkout $SOURCE_BRANCH --
           files=$(find . -type f ! -name ".*")
 
           # 切换到目标分支
-          git checkout $TARGET_BRANCH
+          git checkout $TARGET_BRANCH --
 
           # 删除目标文件夹内容
           rm -rf $TARGET_FOLDER/*
           
           # 从源分支复制文件
           for file in $files; do
-            git checkout $SOURCE_BRANCH $file
+            git checkout $SOURCE_BRANCH -- $file
             mv $file $TARGET_FOLDER/
           done
 
