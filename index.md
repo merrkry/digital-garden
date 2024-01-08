@@ -1,15 +1,9 @@
 ---
-draft: false
+title: 
 tags: 
 date: 2024-01-04
-title: Welcome to Quartz
 ---
 
-This is a blank Quartz installation.
-See the [documentation](https://quartz.jzhao.xyz) for how to get started.
+这里是 Merrkry，欢迎来到我的**数字花园**。
 
-[[README]]
-
-[[index]]
-
-[[内核优化]]
+这座数字花园在 [Obsidian](https://obsidian.md/) 写作，通过 [Quartz](https://quartz.jzhao.xyz/) 发布。
