@@ -1,0 +1,42 @@
+# by ChatGPT
+
+name: Copy folder to other branch
+
+on: [push]
+
+jobs:
+  sync-content:
+    name: Copy files to custom branch
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Copy content branch to a temporary directory
+      run: |
+        git fetch
+        git worktree add ${{ runner.temp }}/content-dir content
+
+    - name: Switch to the custom branch and clear target directory
+      run: |
+        git switch custom
+        rm -rf content/*  # 清空 custom 分支的 content 目录
+
+    - name: Copy files from content branch to custom branch
+      run: |
+        cp -r ${{ runner.temp }}/content-dir/* content/
+        rm -rf ${{ runner.temp }}/content-dir  # 删除临时目录
+
+    - name: Remove hidden files from content directory
+      run: |
+        find content -type f -name ".*" -delete
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+        git add content
+        git commit -m "Update content directory from content branch"
+        git push origin custom
