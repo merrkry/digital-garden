@@ -5,40 +5,38 @@ name: Copy folder to other branch
 on: [push]
 
 jobs:
-  copy:
+  sync-content:
     name: Copy files to custom branch
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Copy and commit files
-        env:
-          SOURCE_BRANCH: 'content'
-          TARGET_BRANCH: 'custom'
-          TARGET_FOLDER: 'content'
-        run: |
-          git config --global user.name 'GitHub Action'
-          git config --global user.email 'action@github.com'
-          git fetch
-          
-          # 切换到源分支并获取文件列表，忽略隐藏文件
-          git switch $SOURCE_BRANCH
-          files=$(find . -type f ! -name ".*")
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
-          # 切换到目标分支
-          git switch $TARGET_BRANCH
+    - name: Copy content branch to a temporary directory
+      run: |
+        git fetch
+        git worktree add ${{ vars.RUNNER_TEMP }}/content-dir content
 
-          # 删除目标文件夹内容
-          rm -rf $TARGET_FOLDER/*
-          
-          # 从源分支复制文件
-          for file in $files; do
-            git checkout $SOURCE_BRANCH -- $file
-            mv $file $TARGET_FOLDER/
-          done
+    - name: Switch to the custom branch and clear target directory
+      run: |
+        git switch custom
+        rm -rf content/*  # 清空 custom 分支的 content 目录
 
-          # 提交更改
-          git add $TARGET_FOLDER
-          git diff-index --quiet HEAD || git commit -m "Update content from $SOURCE_BRANCH branch"
-          git push origin $TARGET_BRANCH
+    - name: Copy files from content branch to custom branch
+      run: |
+        cp -r ${{ vars.RUNNER_TEMP }}/content-dir/* content/
+        rm -rf ${{ vars.RUNNER_TEMP }}/content-dir  # 删除临时目录
+
+    - name: Remove hidden files from content directory
+      run: |
+        find content -type f -name ".*" -delete
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+        git add content
+        git commit -m "Update content directory from content branch"
+        git push origin custom
