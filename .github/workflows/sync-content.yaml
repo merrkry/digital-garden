@@ -32,7 +32,7 @@ jobs:
           
           # 从源分支复制文件
           for file in $files; do
-            git checkout $SOURCE_BRANCH -- $file
+            git checkout $SOURCE_BRANCH $file
             mv $file $TARGET_FOLDER/
           done
 
