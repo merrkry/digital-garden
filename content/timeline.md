@@ -6,4 +6,4 @@ date: 2024-01-08
 按照写作的时间顺序汇总文章。一些独立性较低的附加内容不在此列。
 
 - 2024-01
-	- [[kernel-optimization|代理服务器调优]]
+	- [[kernel-optimizations|代理服务器调优]]
