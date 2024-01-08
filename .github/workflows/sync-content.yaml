@@ -21,11 +21,11 @@ jobs:
           git fetch
           
           # 切换到源分支并获取文件列表，忽略隐藏文件
-          git checkout $SOURCE_BRANCH --
+          git switch $SOURCE_BRANCH
           files=$(find . -type f ! -name ".*")
 
           # 切换到目标分支
-          git checkout $TARGET_BRANCH --
+          git switch $TARGET_BRANCH
 
           # 删除目标文件夹内容
           rm -rf $TARGET_FOLDER/*
