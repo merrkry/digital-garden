@@ -18,6 +18,7 @@ jobs:
       run: |
         git fetch
         git switch content
+        mkdir ${{ runner.temp }}/content-dir
         cp -r * ${{ runner.temp }}/content-dir
 
     - name: Switch to the custom branch and clear target directory
