@@ -7,4 +7,3 @@ date: 2024-01-08
 
 - 2024-01
 	- [[kernel-optimizations|代理服务器调优]]
-	- [[bilibili-cdn|优化 CDN 选取，解决 B 站卡顿问题]]
