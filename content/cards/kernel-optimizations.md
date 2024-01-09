@@ -25,11 +25,11 @@ awk -f <(wget -O - https://dl.xanmod.org/check_x86-64_psabi.sh)
 wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -o /usr/share/keyrings/xanmod-archive-keyring.gpg
 ```
 
-```
+```shell
 echo 'deb [signed-by=/usr/share/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-release.list
 ```
 
-```
+```shell
 sudo apt update && sudo apt install linux-xanmod-x64v3
 ```
 
@@ -43,7 +43,7 @@ sudo apt update && sudo apt install linux-xanmod-x64v3
 > 
 > 关于 TFO 有一些争议，参见 [naiveproxy Wiki](https://github.com/klzgrad/naiveproxy/wiki/Performance-Tuning) 和 [Surge Knowledge Base](https://kb.nssurge.com/surge-knowledge-base/v/zh/technotes/tfo)。
 > 
-> 上面的配置遵从 ArchWiki 的建议，完整开启了 TFO。如果希望禁用，请设置 `net.ipv4.tcp_fastopen = 0`。
+> 这里的配置遵从 ArchWiki 的建议，完整开启了 TFO。如果希望禁用，请设置 `net.ipv4.tcp_fastopen = 0`。
 
 ```shell
 # BBR congestion control
